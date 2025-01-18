@@ -91,7 +91,7 @@ internal class Program
                 break;
                 case 1:
                 string filename= "result.csv";
-                FileStream fs=new FileStream(filename,FileMode.Create,FileAccess.Write);
+                FileStream fs=new FileStream(filename,FileMode.Create,FileAccess.ReadWrite);
                 StreamWriter sw=new StreamWriter(fs);
                 sw.WriteLine("議員定数");
                 sw.WriteLine(seats);
@@ -103,6 +103,9 @@ internal class Program
                 sw.Close();
                 input=1;
                 Console.WriteLine("ファイル出力が終了しました。");
+                break;
+                default:
+                input = -1;
                 break;
 
             }
