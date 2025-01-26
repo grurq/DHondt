@@ -90,19 +90,28 @@ internal class Program
                 input=0;
                 break;
                 case 1:
-                string filename= "result.csv";
-                FileStream fs=new FileStream(filename,FileMode.Create,FileAccess.ReadWrite);
-                StreamWriter sw=new StreamWriter(fs);
-                sw.WriteLine("議員定数");
-                sw.WriteLine(seats);
-                sw.WriteLine("政党ID,得票数,獲得議席");
-                for(int i=0;i<votes.Count;i++)
-                {
-                    sw.WriteLine((i+1)+","+votes[i]+","+wonseats[i]);
-                }
-                sw.Close();
-                input=1;
-                Console.WriteLine("ファイル出力が終了しました。");
+                string filename = "result.csv";
+                    try {
+                        FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
+                        StreamWriter sw = new StreamWriter(fs);
+                        sw.WriteLine("議員定数");
+                        sw.WriteLine(seats);
+                        sw.WriteLine("政党ID,得票数,獲得議席");
+                        for (int i = 0; i < votes.Count; i++)
+                        {
+                            sw.WriteLine((i + 1) + "," + votes[i] + "," + wonseats[i]);
+                        }
+                        sw.Close();
+                        Console.WriteLine("ファイル出力が終了しました。");
+                        input = 1;
+                    }
+                    catch(System.IO.IOException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine("ファイル処理でエラーが発生しました。");
+                        Console.WriteLine(filename + "を閉じるなどの操作をお試しください。");
+                        input = -1;
+                    }        
                 break;
                 default:
                 input = -1;
